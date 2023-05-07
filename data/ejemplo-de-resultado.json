@@ -1,0 +1,126 @@
+{
+    "cabecera": {
+        "codEleccion": 37,
+        "codDepartamento": 11,
+        "codDistrito": 27,
+        "codZona": 0,
+        "codLocal": 10,
+        "numMesa": 1,
+        "blancos": 6,
+        "nulos": 0,
+        "totProg": 258,
+        "desCandidatura": "PRESIDENTE DE LA REPUBLICA",
+        "desDepartamento": "11-CENTRAL",
+        "desDistrito": "27-SAN LORENZO",
+        "desZona": "0-SANLORENZO",
+        "desLocal": "10-LIC. COL. NAC. SAN ANTONIO DEPADUA",
+        "nocomputados": 0
+    },
+    "detalle": [
+        {
+            "votos": 105,
+            "numLista": "1",
+            "idLista": 5101,
+            "orden": 1,
+            "desPartido": "PARTIDOCOLORADO",
+            "sigPartido": "ANR"
+        },
+        {
+            "votos": 86,
+            "numLista": "3",
+            "idLista": 5102,
+            "orden": 2,
+            "desPartido": "CONCERTACION NACIONALPARA UN NUEVO PARAGUAY",
+            "sigPartido": "CN2023"
+        },
+        {
+            "votos": 0,
+            "numLista": "7",
+            "idLista": 5103,
+            "orden": 3,
+            "desPartido": "PARTIDOUNACE",
+            "sigPartido": "UNACE"
+        },
+        {
+            "votos": 7,
+            "numLista": "10",
+            "idLista": 5104,
+            "orden": 4,
+            "desPartido": "MOVIMIENTO POLITICO LANUEVA REPUBLICA",
+            "sigPartido": "MPNR"
+        },
+        {
+            "votos": 0,
+            "numLista": "14",
+            "idLista": 5105,
+            "orden": 5,
+            "desPartido": "MOVIMIENTOHUMANISTA Y SOLIDARIO",
+            "sigPartido": "MHS"
+        },
+        {
+            "votos": 5,
+            "numLista": "15",
+            "idLista": 5106,
+            "orden": 6,
+            "desPartido": "PARTIDONACIONAL UNAMONOS",
+            "sigPartido": "PNU"
+        },
+        {
+            "votos": 6,
+            "numLista": "21",
+            "idLista": 5107,
+            "orden": 7,
+            "desPartido": "PARTIDO DE LAJUVENTUD FUERZA JOVEN",
+            "sigPartido": "PJFJ"
+        },
+        {
+            "votos": 0,
+            "numLista": "23",
+            "idLista": 5108,
+            "orden": 8,
+            "desPartido": "PARTIDOVERDE PARAGUAY PVP",
+            "sigPartido": "PVP"
+        },
+        {
+            "votos": 1,
+            "numLista": "30",
+            "idLista": 5109,
+            "orden": 9,
+            "desPartido": "PARTIDONACIONAL DE LA GENTE 30A",
+            "sigPartido": "PNG30A"
+        },
+        {
+            "votos": 0,
+            "numLista": "33",
+            "idLista": 5110,
+            "orden": 10,
+            "desPartido": "MOV.INDEPEND. COORDINADORA PATRIOTICACIUDADANA",
+            "sigPartido": "CPC"
+        },
+        {
+            "votos": 0,
+            "numLista": "45",
+            "idLista": 5111,
+            "orden": 11,
+            "desPartido": "PARTIDO SOCIALISTADEMOCRATICO HEREDEROS",
+            "sigPartido": "PSDH"
+        },
+        {
+            "votos": 0,
+            "numLista": "777",
+            "idLista": 5112,
+            "orden": 12,
+            "desPartido": "UNETEPARAGUAY",
+            "sigPartido": "UP"
+        },
+        {
+            "votos": 42,
+            "numLista": "911",
+            "idLista": 5113,
+            "orden": 13,
+            "desPartido": "PARTIDO CRUZADANACIONAL",
+            "sigPartido": "PCN"
+        }
+    ],
+    "jpeg": "foto en base 64"
+}

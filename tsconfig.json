@@ -1,0 +1,18 @@
+  {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "target": "ES2022",
+      "strict": true,
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "outDir": "dist",
+      "resolveJsonModule": true,
+      "experimentalDecorators": true
+    },
+    "include": [
+      "src/**/*",
+      "test/**/*",
+    ]
+  }
