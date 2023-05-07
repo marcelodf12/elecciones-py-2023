@@ -15,7 +15,9 @@ function serializeArguments(args: any[]): string {
     if (typeof arg === 'function') {
       return arg.toString();
     }
-    return JSON.stringify(arg);
+    const copia = JSON.parse(JSON.stringify(arg))
+    delete copia.codigo;
+    return JSON.stringify(copia);
   });
   return serializedArgs.join(':');
 }
@@ -41,16 +43,16 @@ function cacheFetch(cacheFile: string) {
 
     descriptor.value = async function (...args: any[]) {
       const cacheKey = serializeArguments(args);
-      console.log(cacheKey)
+      //console.log(cacheKey)
       cache = loadCache(cacheFileFullPath);
       if (cache[cacheKey]) {
-        console.log('Retrieved from cache');
+        //console.log('Retrieved from cache');
         return cache[cacheKey];
       } else {
         const result = await originalMethod.apply(this, args);
         cache[cacheKey] = result;
         saveCache(cacheFileFullPath, cache);
-        console.log('Added to cache');
+        //console.log('Added to cache');
         return result;
       }
     };

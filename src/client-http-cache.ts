@@ -9,9 +9,16 @@ class ClientHttpCache {
   constructor(readonly endpoint: string) { }
 
   protected async retrive(url: string) {
-    console.log('Call to ' + url);
+    //console.log('Call to ' + url);
+    var txtData = ''
+    try {
     const response = await fetch(url);
-    var txtData = await response.text();
+    txtData = await response.text();
+    } catch (error) {
+      console.log(`error:${url}`);
+      return null
+    }
+    
     try {
       const jsonData = JSON.parse(txtData);
       return jsonData;
@@ -72,7 +79,7 @@ export class MesasClient extends ClientHttpCache {
     return this.retrive(this.endpoint);
   }
 
-  @cacheFetch('9-formateado')
+  
   async callFormat(seguridadClient: SeguridadClient): Promise<Mesa[]> {
     const seguridad = await seguridadClient.call();
     //console.log(seguridad)
@@ -96,11 +103,10 @@ export class MesasClient extends ClientHttpCache {
               Object.keys(zona).forEach(keyLocalidad => {
                 //console.log('     zona')
                 const local = zona[keyLocalidad]
-                Object.keys(local).forEach(keyMesa => {
-                  const mesa = local[keyMesa]
+                  for(var mesa=local['1']; mesa <= local['2'];mesa++){
                   let codigo = '0'
                   try {
-                    codigo = seguridad[keyEleccion][keyDepartamento][keyDistrito][keyZona][keyLocalidad][keyMesa][keyCandidatura]
+                    codigo = seguridad[keyEleccion][keyDepartamento][keyDistrito][keyZona][keyLocalidad][mesa][keyCandidatura]
                   } catch (error) {
 
                     console.log('No se encontro', keyEleccion,
@@ -109,7 +115,7 @@ export class MesasClient extends ClientHttpCache {
                       keyDistrito,
                       keyZona,
                       keyLocalidad,
-                      keyMesa)
+                      mesa)
                   }
                   const mesaObj = new Mesa(
                     keyEleccion,
@@ -118,19 +124,19 @@ export class MesasClient extends ClientHttpCache {
                     keyDistrito,
                     keyZona,
                     keyLocalidad,
-                    keyMesa,
+                    mesa,
                     codigo
                   );
                   //console.log(mesaObj);
                   arrayResult.push(mesaObj);
-                });
+                }
               });
             });
           });
         });
       });
     });
-    console.log(seguridad)
+    //console.log(seguridad)
     return arrayResult;
   }
 }
@@ -147,26 +153,31 @@ export class ResultadosClient extends ClientHttpCache {
   async call(mesa: Mesa) {
     const url = format(this.endpoint, Mesa.fromObj(mesa).toObj())
     const resultado = await this.retrive(url);
-    const mapped = {
-      "dep": resultado.cabecera.desDepartamento,
-      "dist": resultado.cabecera.desDistrito,
-      "zona": resultado.cabecera.desZona,
-      "local": resultado.cabecera.desLocal,
-      "mesa": resultado.cabecera.numMesa,
-      "totProg": resultado.cabecera.totProg,
-      "nocomputados": resultado.cabecera.nocomputados,
-      "blancos": resultado.cabecera.blancos,
-      "nulos": resultado.cabecera.nulos,
-      //"desCandidatura": resultado.cabecera.desCandidatura,
-      "detalles": resultado.detalle.map((d: { sigPartido: string; numLista: string; votos: string; }) => `${d.sigPartido}(${d.numLista}):${d.votos}`).join(',')
+    if(resultado){
+      const mapped = {
+        "dep": resultado.cabecera.desDepartamento,
+        "dist": resultado.cabecera.desDistrito,
+        "zona": resultado.cabecera.desZona,
+        "local": resultado.cabecera.desLocal,
+        "mesa": resultado.cabecera.numMesa,
+        "totProg": resultado.cabecera.totProg,
+        "nocomputados": resultado.cabecera.nocomputados,
+        "blancos": resultado.cabecera.blancos,
+        "nulos": resultado.cabecera.nulos,
+        //"desCandidatura": resultado.cabecera.desCandidatura,
+        "detalles": resultado.detalle.map((d: { sigPartido: string; numLista: string; votos: string; }) => `${d.sigPartido}(${d.numLista}):${d.votos}`).join(',')
+      }
+      if(typeof resultado.cabecera.desCandidatura === 'string' && !!resultado.jpeg){
+        const cand = resultado.cabecera.desCandidatura.split(' ')[0]
+        const dep = resultado.cabecera.desDepartamento
+        const dist = resultado.cabecera.desDistrito
+        const colegio = resultado.cabecera.desLocal.split('-')[0]
+        const mesaNro = resultado.cabecera.numMesa
+        saveJPG(resultado.jpeg, `./data/certs/${cand}/${dep}/${dist}/${colegio}/${mesaNro}.jpg`);
+      }
+      return mapped
     }
-    const cand = resultado.cabecera.desCandidatura.split(' ')[0]
-    const dep = resultado.cabecera.desDepartamento
-    const dist = resultado.cabecera.desDistrito
-    const colegio = resultado.cabecera.desLocal.split('-')[0]
-    const mesaNro = resultado.cabecera.numMesa
-    saveJPG(resultado.jpeg, `./data/certs/${cand}/${dep}/${dist}/${colegio}/${mesaNro}.jpg`);
-    return mapped
+    return null
   }
 }
 
