@@ -42,17 +42,30 @@ const resultadosClient = new client.ResultadosClient(endpoints.resultados);
     const localesResult = await localesClient.call();
     const mesasResult = await mesasClient.callFormat(seguridadClient);
     const resultado = await resultadosClient.call(mesasResult[0]);
-    // Filtrar solo presidencia
-    const mesasPresidencia = mesasResult.filter(m => m.candidatura === '1');
-    const resultadoPresidencia = []
+
+
+    const eleccionesAExtraer = '2'
+    /*
+      Si desea extraer otra eleccion cambiar el 1 por los siguentes nros
+        "1":"PRESIDENTE Y VICEPRESIDENTE DE LA REPUBLICA"
+        "2":"SENADORES"
+        "3":"DIPUTADOS"
+        "4":"GOBERNADOR"
+        "5":"JUNTA DEPARTAMENTAL"
+    */
+
+    const nombreDeEleccion = candidaturasResult['37'][eleccionesAExtraer].split(' ')[0]
+    const mesasSeleccionadas = mesasResult.filter(m => m.candidatura === eleccionesAExtraer);
+    
+    const resultadosExtraidos = []
     let currentValue = 0
-    let total = mesasPresidencia.length
+    let total = mesasSeleccionadas.length
     let totalTimeDown = 0
     let downloads = 0
-    console.log(`Descargando actas de presidencia`);
+    console.log(`Descargando actas de ${nombreDeEleccion}`);
     let lastTime = new Date().getTime();
     progressBar.start(total, 0);
-    for(let m of mesasPresidencia){
+    for(let m of mesasSeleccionadas){
 
       //Medicion de tiempo
         currentValue++;
@@ -67,12 +80,12 @@ const resultadosClient = new client.ResultadosClient(endpoints.resultados);
 
       //Recuperar datos  
         const r = await resultadosClient.call(m);
-        resultadoPresidencia.push(r);
+        resultadosExtraidos.push(r);
         
       //Medicion de tiempo
         lastTime = currentTime;
     }
-    generateCsv(resultadoPresidencia,'presidencia')
+    generateCsv(resultadosExtraidos,nombreDeEleccion)
 })();
 
 function formatTime (segundos: number): string {
