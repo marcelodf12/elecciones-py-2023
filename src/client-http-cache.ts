@@ -158,7 +158,7 @@ export class ResultadosClient extends ClientHttpCache {
         "dep": resultado.cabecera.desDepartamento,
         "dist": resultado.cabecera.desDistrito,
         "zona": resultado.cabecera.desZona,
-        "local": resultado.cabecera.desLocal,
+        "local": resultado.cabecera.desLocal.replace(/,/g, ''),
         "mesa": resultado.cabecera.numMesa,
         "totProg": resultado.cabecera.totProg,
         "nocomputados": resultado.cabecera.nocomputados,
