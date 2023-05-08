@@ -1,8 +1,9 @@
 ## Resultados
 Los resultados se generan en la carpeta data
-*cache:* Se almacenan las llamadas a los servicios de TSJE
-*certs:* Se almacenan los certificados digitalizados
-*result:* Se almacenan los resultados en csv
+*data/cache:* Se almacenan las llamadas a los servicios de TSJE
+*data/certs/eleccion/departamento/distrito/id-colegio/:* Se almacenan los certificados digitalizados. Solo para presidencia necesitará 2GB aproximadamente.
+*data/result:* Se almacenan los resultados en csv
+*data/cache/presidencia-py-2023.xlsx:* Datos extraidos para el que no desee descargar todo.
 
 ## Running the app
 
@@ -10,30 +11,10 @@ Los resultados se generan en la carpeta data
 # install dependencies
 npm install
 
-# run in dev mode on port 3000
+# run in dev mode
 npm run dev
 
-# generate production build
+# generate build
 npm run build
 
-# run generated content in dist folder on port 3000
-npm run start
-```
-
-## Testing
-
-### Jest with supertest
-
-```
-npm run test
-```
-
-## Linting
-
-```
-# run linter
-npm run lint
-
-# fix lint issues
-npm run lint:fix
 ```
