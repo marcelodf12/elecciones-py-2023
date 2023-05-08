@@ -53,6 +53,8 @@ const resultadosClient = new client.ResultadosClient(endpoints.resultados);
     let lastTime = new Date().getTime();
     progressBar.start(total, 0);
     for(let m of mesasPresidencia){
+
+      //Medicion de tiempo
         currentValue++;
         let currentTime = new Date().getTime();
         const elapsedTime = (currentTime - lastTime); // Ultimo tiempo transcurrido en millisegundos
@@ -62,8 +64,12 @@ const resultadosClient = new client.ResultadosClient(endpoints.resultados);
         }
         const estimatedTimeRemaining = (totalTimeDown / downloads) * (total - currentValue)  / 1000; // Tiempo restante estimado en segundos
         progressBar.update(currentValue, {estimatedTimeRemaining: formatTime(estimatedTimeRemaining)});
+
+      //Recuperar datos  
         const r = await resultadosClient.call(m);
         resultadoPresidencia.push(r);
+        
+      //Medicion de tiempo
         lastTime = currentTime;
     }
     generateCsv(resultadoPresidencia,'presidencia')
